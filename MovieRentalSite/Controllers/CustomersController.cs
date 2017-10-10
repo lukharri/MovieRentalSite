@@ -61,6 +61,19 @@ namespace MovieRentalSite.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
+            // ModelState accesses to validation data
+            // IsValid used to change app flow
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             // HiddenFor in form provides the Id of the customer
             if (customer.Id == 0)
                 _context.Customers.Add(customer);

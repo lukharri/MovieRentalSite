@@ -18,6 +18,7 @@ namespace MovieRentalSite.Models
 
         public MembershipType MembershipType { get; set; }
 
+        // Implicitly required b/c of byte type - data validation error will show up
         [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
