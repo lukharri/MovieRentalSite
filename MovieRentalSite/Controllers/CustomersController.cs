@@ -27,7 +27,7 @@ namespace MovieRentalSite.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            var customers = _context.Customers.OrderBy(c => c.Name).Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }
@@ -59,20 +59,23 @@ namespace MovieRentalSite.Controllers
         // use CustomerFormViewModel (or Customer) and MVC will automatically map request 
         // data to this object
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
-            // ModelState accesses to validation data
+            // ModelState accesses validation data
             // IsValid used to change app flow
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new CustomerFormViewModel
-                {
-                    Customer = customer,
-                    MembershipTypes = _context.MembershipTypes.ToList()
-                };
+            //var id = customer.Id;
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            //if (!ModelState.IsValid)
+            //{
+            //    var viewModel = new CustomerFormViewModel
+            //    {
+            //        Customer = customer,
+            //        MembershipTypes = _context.MembershipTypes.ToList()
+            //    };
 
-                return View("CustomerForm", viewModel);
-            }
+            //    return View("CustomerForm", viewModel);
+            //}
 
             // HiddenFor in form provides the Id of the customer
             if (customer.Id == 0)

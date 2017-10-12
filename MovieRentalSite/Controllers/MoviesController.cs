@@ -27,7 +27,7 @@ namespace MovieRentalSite.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
+            var movies = _context.Movies.OrderBy(m => m.Name).Include(m => m.Genre).ToList();
             return View(movies);
         }
 
@@ -38,6 +38,7 @@ namespace MovieRentalSite.Controllers
 
             var viewModel = new MovieFormViewModel
             {
+                //Movie = new Models.Movie(),
                 Genres = genres
             };
 
@@ -52,9 +53,9 @@ namespace MovieRentalSite.Controllers
             if (movie == null)
                 return HttpNotFound();
 
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
+                //Movie = movie,
                 Genres = _context.Genres.ToList()
             };
 
@@ -63,8 +64,21 @@ namespace MovieRentalSite.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    var viewModel = new MovieFormViewModel(movie)
+            //    {
+            //        //Movie = movie,
+            //        Genres = _context.Genres.ToList()
+            //    };
+
+            //    return View("MovieForm", viewModel);
+            //}
+
+
             if (movie.Id == 0)
             {
                 movie.DateAdded = DateTime.Now;
