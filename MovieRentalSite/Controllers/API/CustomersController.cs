@@ -43,17 +43,19 @@ namespace MovieRentalSite.Controllers.API
         // POST /api/customers 
         // by convention when we create a resource we return it to the client
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
             customerDto.Id = customer.Id;
-            return customerDto;
+
+            // when creating a resource RESTful convention uses the 201 OK status response
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto );
         }
 
         

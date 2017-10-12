@@ -25,7 +25,7 @@ namespace MovieRentalSite.Dtos
         // Implicitly required b/c of byte type - data validation error will show up
         public byte MembershipTypeId { get; set; }
 
-        [Min18YearsIfAMember]
+        //[Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
 
     }
