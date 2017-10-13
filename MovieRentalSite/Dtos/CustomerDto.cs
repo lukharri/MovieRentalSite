@@ -17,10 +17,11 @@ namespace MovieRentalSite.Dtos
 
         public bool IsSubscribedToNewsLetter { get; set; }
 
-        // exclude b/c this is a domain class and the property is creating dependency between 
+        // exclude b/c Customer is a domain class and the property is creating dependency between 
         // the DTO and the domain model
         // changing membershipType will impact the DTO
         // public MembershipType MembershipType { get; set; }
+        public MembershipTypeDto MembershipType { get; set; }
 
         // Implicitly required b/c of byte type - data validation error will show up
         public byte MembershipTypeId { get; set; }
