@@ -26,10 +26,11 @@ namespace MovieRentalSite.Controllers
 
         // GET: Customers
         public ActionResult Index()
-        {
-            var customers = _context.Customers.OrderBy(c => c.Name).Include(c => c.MembershipType).ToList();
+        {   
+            // dataTable sends AJAX request to customers api and gets the list of customers
+            //var customers = _context.Customers.OrderBy(c => c.Name).Include(c => c.MembershipType).ToList();
 
-            return View(customers);
+            return View();
         }
 
 

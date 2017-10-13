@@ -20,7 +20,6 @@ namespace MovieRentalSite.Controllers.API
         }
 
         
-        // b/c we are returning a list of objects this action, by convention, will respond to
         // GET /api/customers
         public IEnumerable<CustomerDto> GetCustomers()
         {
